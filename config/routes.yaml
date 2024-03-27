@@ -1,0 +1,15 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+confirmation:
+    path: '/confirm/{token}'
+    controller: 'App\Controller\ConfirmationController::confirm'
+
+controllers:
+    resource: '../src/Controller/'
+    type: annotation
+
+productfilter:
+    path: /filter
+    controller: App\Controller\ProductController::filter
