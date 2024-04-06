@@ -200,5 +200,24 @@ class Product
     }
 
 
+    // vérifier si un produit est dans la liste de souhaits de l'utilisateur connecté //
+    public function getIsInWishlist(User $user): bool
+    {
+        foreach ($this->wishLists as $wishList) {
+            if ($wishList->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    // Comptez le nombre de like pour un produit
+    public function getWishlistCount(): int
+    {
+        return count($this->wishLists);
+    }
+
     
 }

@@ -9,10 +9,16 @@
     <h1>{{ product.title }}</h1>
     <p>{{ product.description }}</p>
     <p>{{ product.price }} €</p>
-{% endfor %}
+    <p>{{ product.wishlistCount }} likes</p>
     
     {% if is_granted('ROLE_BUYER') %}
-        <a href="{{ path('app_wishlist_add', {'id': product.id}) }}" class="btn btn-primary">Like</a>
-        <a href="{{ path('app_wishlist_remove', {'id': product.id}) }}" class="btn btn-danger">Dislike</a>
+    {% if product.isInWishlist(app.user) %}
+    {# le bouton affiché dépendra de si le produit est déjà dans la liste de souhaits de l'utilisateur connecté ou non. #}
+            <a href="{{ path('app_wishlist_remove', {'id': product.id}) }}" class="btn btn-danger">Dislike</a>
+        {% else %}
+            <a href="{{ path('app_wishlist_add', {'id': product.id}) }}" class="btn btn-primary">Like</a>
+        {% endif %}
     {% endif %}
+{% endfor %}
+    
 {% endblock %}
