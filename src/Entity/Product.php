@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,6 +37,24 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    #[ORM\OneToMany(targetEntity: WishList::class, mappedBy: 'product')]
+    private Collection $wishLists;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $UpdatedDate = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $seller = null;
+
+    public function __construct()
+    {
+        $this->wishLists = new ArrayCollection();
+        $this->creationDate = new \DateTimeImmutable();
+        $this->UpdatedDate = new \DateTimeImmutable();
+        }
+    
 
     public function getId(): ?int
     {
@@ -124,4 +144,61 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, WishList>
+     */
+    public function getWishLists(): Collection
+    {
+        return $this->wishLists;
+    }
+
+    public function addWishList(WishList $wishList): static
+    {
+        if (!$this->wishLists->contains($wishList)) {
+            $this->wishLists->add($wishList);
+            $wishList->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWishList(WishList $wishList): static
+    {
+        if ($this->wishLists->removeElement($wishList)) {
+            // set the owning side to null (unless already changed)
+            if ($wishList->getProduct() === $this) {
+                $wishList->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedDate(): ?\DateTimeInterface
+    {
+        return $this->UpdatedDate;
+    }
+
+    public function setUpdatedDate(\DateTimeInterface $UpdatedDate): static
+    {
+        $this->UpdatedDate = $UpdatedDate;
+
+        return $this;
+    }
+
+    public function getSeller(): ?User
+    {
+        return $this->seller;
+    }
+
+    public function setSeller(?User $seller): static
+    {
+        $this->seller = $seller;
+
+        return $this;
+    }
+
+
+    
 }

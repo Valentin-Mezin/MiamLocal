@@ -1,20 +1,18 @@
+{# templates/product/show.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{# {% block title %}{{ product.title }}{% endblock %} #}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/valentin/Documents/projet_test/nom_du_projet/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/valentin/Documents/projet_test/nom_du_projet/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% for product in products %}
+    
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.description }}</p>
+    <p>{{ product.price }} €</p>
+{% endfor %}
+    
+    {% if is_granted('ROLE_BUYER') %}
+        <a href="{{ path('app_wishlist_add', {'id': product.id}) }}" class="btn btn-primary">Like</a>
+        <a href="{{ path('app_wishlist_remove', {'id': product.id}) }}" class="btn btn-danger">Dislike</a>
+    {% endif %}
 {% endblock %}

@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
+use App\Entity\Product;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -36,6 +38,12 @@ class AppFixtures extends Fixture
             $seller->setRoles(['ROLE_SELLER']);
             $seller->setPassword($this->hasher->hashPassword($seller, 'password'));
 
+            $sellers[] = $seller;
+
+
+
+            
+
             $manager->persist($seller);
         }
 
@@ -48,6 +56,35 @@ class AppFixtures extends Fixture
 
             $manager->persist($buyer);
         }
+
+        // create categories
+        $categories = ['Charcuterie', 'Viandes', 'Poissons', 'Fruits & Légumes', 'Fromages'];
+
+        $categoryEntities = [];
+
+        foreach ($categories as $categoryName) {
+            $category = new Category();
+            $category->setTitle($categoryName);
+
+            $manager->persist($category);
+            $categoryEntities[] = $category;
+        }
+
+        foreach ($sellers as $seller) {
+            $randomNumber = $faker->numberBetween(1, 15);
+                for ($i = 0; $i < $randomNumber; $i++) {
+                    $product = new Product();
+                    $product->setDescription($faker->text);
+                    $product->setTitle($faker->sentence(3));
+                    $product->setPrice($faker->randomFloat(2, 10, 1000));
+                    $product->setStock($faker->numberBetween(1, 100));
+                    $product->setCategory($faker->randomElement($categoryEntities));
+                    $product->setProductMedia($faker->imageUrl());
+                    $product->setSeller($seller);
+
+            $manager->persist($product);
+        }
+    }
 
         $manager->flush();
     }
