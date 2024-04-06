@@ -4,13 +4,40 @@
 {# {% block title %}{{ product.title }}{% endblock %} #}
 
 {% block body %}
+
+<section id="products">
+    <div class="container">
+        <h1>Products List</h1>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img src="{{ product.productMedia }}" class="card-img-top" alt="{{ product.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text">Stock : {{ product.stock }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{ product.price }} €</small>
+                        </div>
+                        <a href="{{ path('app_cart_add', {'id': product.id}) }}" class="btn btn-sm btn-outline-secondary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
 {% for product in products %}
     
     <h1>{{ product.title }}</h1>
     <p>{{ product.description }}</p>
     <p>{{ product.price }} €</p>
     <p>{{ product.wishlistCount }} likes</p>
-    
+
     {% if is_granted('ROLE_BUYER') %}
     {% if product.isInWishlist(app.user) %}
     {# le bouton affiché dépendra de si le produit est déjà dans la liste de souhaits de l'utilisateur connecté ou non. #}

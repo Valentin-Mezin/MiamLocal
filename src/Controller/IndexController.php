@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,4 +22,6 @@ class IndexController extends AbstractController
             'categories' => $categories
         ]);
     }
+
+
 }
