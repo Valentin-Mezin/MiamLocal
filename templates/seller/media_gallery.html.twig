@@ -9,12 +9,12 @@
     <div class="col-md-7 row justify-content-between text-center">
         <div class="col-md-6 card text-center">
             {% if medias|length > 0 %}
-                <img src="{{ asset('upload/' ~ medias[0].getFilePath()) }}" width="200" height="200" class="img-fluid" id="image" alt="ICI">
+                <img src="{{ asset('uploads/' ~ medias[0].getFilePath()) }}" width="200" height="200" class="img-fluid" id="image" alt="ICI">
             {% endif %}
         </div>
         <div class="col-md-6" id="gallery">
             {% for media in medias %}
-                <img src="{{ asset('upload/' ~ media.getFilePath()) }}" class="img-thumbnail mt-1" width="100" height="100" alt="{{ media.getDescription() }}">
+                <img src="{{ asset('uploads/' ~ media.getFilePath()) }}" class="img-thumbnail mt-1" width="100" height="100" alt="{{ media.getDescription() }}">
             {% endfor %}
         </div>
     </div>

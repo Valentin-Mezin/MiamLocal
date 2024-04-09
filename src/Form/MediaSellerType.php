@@ -18,12 +18,6 @@ class MediaSellerType extends AbstractType
     {
         $builder
             ->add('description')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
             ->add('filePath', FileType::class,[
                         'required'=>false,
                         'label'=>'Fichier photo en liens avec le produit',

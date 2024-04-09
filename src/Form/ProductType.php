@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Product;
-use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -21,34 +20,26 @@ class ProductType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('price')
-            ->add('creationDate', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('productMedia', FileType::class,[
-                'required'=>false,
-                'label'=>'Fichier photo en liens avec le produit',
-                'attr'=>[
-                'onChange'=>'loadFile(event)'
+            ->add('productMedia', FileType::class, [
+                'required' => false,
+                'label' => 'Fichier photo en liens avec le produit',
+                'attr' => [
+                    'onChange' => 'loadFile(event)'
                 ],
-                'constraints'=>[
+                'constraints' => [
                     new File([
-                        'maxSize'=>'2000k','maxSizeMessage'=>'Fichier trop volumineux, 2MO maximum',
-                        'mimeTypes'=>['image/jpg','image/jpeg','image/png','image/web'],
-                        'mimeTypesMessage'=>"formats autorisé:image/jpg','image/jpeg','image/png','image/web'"
+                        'maxSize' => '2000k', 'maxSizeMessage' => 'Fichier trop volumineux, 2MO maximum',
+                        'mimeTypes' => ['image/jpg', 'image/jpeg', 'image/png', 'image/web'],
+                        'mimeTypesMessage' => "formats autorisé:image/jpg','image/jpeg','image/png','image/web'"
                     ])
-            ]
-        ])
-            ->add('stock')
-            ->add('UpdatedDate', null, [
-                'widget' => 'single_text',
+                ]
             ])
+            ->add('stock')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'id',
             ])
-
-            ->add('Ajouter', SubmitType::class)
-        ;
+            ->add('Ajouter', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

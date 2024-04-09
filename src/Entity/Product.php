@@ -53,9 +53,8 @@ class Product
         $this->wishLists = new ArrayCollection();
         $this->creationDate = new \DateTimeImmutable();
         $this->UpdatedDate = new \DateTimeImmutable();
-        }
+    }
     
-
     public function getId(): ?int
     {
         return $this->id;
