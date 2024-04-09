@@ -38,10 +38,7 @@ class MediaSellerType extends AbstractType
                             ])
                     ]
                 ])            
-            //     ->add('userSeller', EntityType::class, [
-            //     'class' => UserSeller::class,
-            //     'choice_label' => 'id',
-            // ])
+
             ->add('Ajouter', SubmitType::class)
 
         ;

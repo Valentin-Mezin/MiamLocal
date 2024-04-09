@@ -4,5 +4,18 @@
 
     <h1>Ajoutez des photos !</h1>
     <div>{{form(form)}}</div>
+    <a href="{{ path('app_seller_index') }}">Valider</a>
+    <img id="image" width="300" alt=""><br>
+
+  <script>
+    var loadFile = function (event) {
+      var image = document.getElementById('image');
+      var name = document.getElementById('name');
+
+      image.src = URL.createObjectURL(event.target.files[0]);
+
+    };
+
+  </script>
 
 {% endblock %}

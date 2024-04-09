@@ -1,0 +1,34 @@
+{% extends 'seller/index.html.twig' %}
+
+{% block body %}
+
+      <div class=" p-5 m-3 border border-1 rounded border-secondary row justify-content-between">
+
+
+<div class="p-5 m-3 border border-1 rounded border-secondary row justify-content-between">
+    <div class="col-md-7 row justify-content-between text-center">
+        <div class="col-md-6 card text-center">
+            {% if medias|length > 0 %}
+                <img src="{{ asset('upload/' ~ medias[0].getFilePath()) }}" width="200" height="200" class="img-fluid" id="image" alt="ICI">
+            {% endif %}
+        </div>
+        <div class="col-md-6" id="gallery">
+            {% for media in medias %}
+                <img src="{{ asset('upload/' ~ media.getFilePath()) }}" class="img-thumbnail mt-1" width="100" height="100" alt="{{ media.getDescription() }}">
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+         {# <div class="col-md-5 border-left border-3 border-left-dark me-5 text-center">
+            <h2>{{ media }}</h2>
+            <h3>{{ product.price }}€</h3>
+            <h3>{{ product.category.title }}</h3>
+            <p>{{ product.description }}</p> 
+        </div>
+        <a href="{{ path ('admin_product_update',{'id':userSeller.id}) }}" class="btn btn-secondary">Modifier les informations</a>
+        <a href="{{ path ('product_update_medias',{'id':userSeller.id}) }}" class="btn btn-info">Modifier les médias</a>
+        <a href="{{ path ('admin_product_delete',{'id':userSeller.id}) }}" class="btn btn-danger">Supprimer le produit</a> #}
+
+         {% endblock %}
