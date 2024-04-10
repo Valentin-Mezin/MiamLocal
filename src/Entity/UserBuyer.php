@@ -26,10 +26,11 @@ class UserBuyer
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToOne(inversedBy: 'userBuyer', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Adress $adress = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     public function getId(): ?int
@@ -107,7 +108,7 @@ class UserBuyer
         return $this->user;
     }
 
-    public function setUser(?UserBuyer $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 

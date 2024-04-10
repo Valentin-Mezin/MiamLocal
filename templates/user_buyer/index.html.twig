@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserBuyer index{% endblock %}
+
+{% block body %}
+    <h1>UserBuyer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>RegistrationDate</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {# {% for user_buyer in user_buyers %} #}
+            <tr>
+                <td>{{ user_buyer.id }}</td>
+                <td>{{ user_buyer.firstName }}</td>
+                <td>{{ user_buyer.lastName }}</td>
+                <td>{{ user_buyer.registrationDate ? user_buyer.registrationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user_buyer.updatedAt ? user_buyer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_user_buyer_show', {'id': user_buyer.id}) }}">show</a>
+                    <a href="{{ path('app_user_buyer_edit', {'id': user_buyer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {# {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr> #}
+        {# {% endfor %} #}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_buyer_new') }}">Create new</a>
+{% endblock %}

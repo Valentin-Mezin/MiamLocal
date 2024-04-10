@@ -3,7 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Label;
 use App\Entity\Product;
+use App\Entity\Region;
+use App\Entity\Unit;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -70,6 +73,7 @@ class AppFixtures extends Fixture
             $categoryEntities[] = $category;
         }
 
+        // create products
         foreach ($sellers as $seller) {
             $randomNumber = $faker->numberBetween(1, 15);
                 for ($i = 0; $i < $randomNumber; $i++) {
@@ -85,6 +89,58 @@ class AppFixtures extends Fixture
             $manager->persist($product);
         }
     }
+
+            // create labels
+            $labels = ['Agriculture biologique', 'LabelRouge', 'AOC', 'IGP', 'STG'];
+
+            $labelEntities = [];
+    
+            foreach ($labels as $labelTitle) {
+                $label = new Label();
+                $label->setTitle($labelTitle);
+    
+                $manager->persist($label);
+                $labelEntities[] = $label;
+            }
+
+                    // create units
+        $units = ['Kilogramme', 'Gramme', 'Litre', 'Centilitre', 'Unité'];
+
+        $unitEntities = [];
+
+        foreach ($units as $unitName) {
+            $unit = new Unit();
+            $unit->setName($unitName);
+
+            $manager->persist($category);
+            $unitEntities[] = $unit;
+        }
+
+                // create regions
+                $regions = [
+                    'Auvergne-Rhône-Alpes',
+                    'Bourgogne-Franche-Comté',
+                    'Bretagne',
+                    'Centre-Val de Loire',
+                    'Corse',
+                    'Grand Est',
+                    'Hauts-de-France',
+                    'Île-de-France',
+                    'Normandie',
+                    'Nouvelle-Aquitaine',
+                    'Occitanie',
+                    'Pays de la Loire',
+                    'Provence-Alpes-Côte d\'Azur'
+                ];
+        $regionEntities = [];
+
+        foreach ($regions as $regionName) {
+            $region = new Region();
+            $region->setName($regionName);
+
+            $manager->persist($region);
+            $regionEntities[] = $region;
+        }
 
         $manager->flush();
     }

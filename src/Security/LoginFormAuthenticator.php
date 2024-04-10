@@ -54,7 +54,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($this->urlGenerator->generate('app_seller_index'));
         }
         if (in_array('ROLE_BUYER', $token->getRoleNames())) {
-            return new RedirectResponse($this->urlGenerator->generate('app_buyer_index'));
+            return new RedirectResponse($this->urlGenerator->generate('app_user_buyer_index'));
         }
 
         // For example:

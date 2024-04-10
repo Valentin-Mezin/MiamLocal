@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserBuyer{% endblock %}
+
+{% block body %}
+    <h1>UserBuyer</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user_buyer.id }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ user_buyer.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ user_buyer.lastName }}</td>
+            </tr>
+            <tr>
+                <th>RegistrationDate</th>
+                <td>{{ user_buyer.registrationDate ? user_buyer.registrationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ user_buyer.updatedAt ? user_buyer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_buyer_index') }}">back to list</a>
+
+    <a href="{{ path('app_user_buyer_edit', {'id': user_buyer.id}) }}">edit</a>
+
+    {{ include('user_buyer/_delete_form.html.twig') }}
+{% endblock %}

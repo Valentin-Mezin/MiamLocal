@@ -131,6 +131,8 @@ class SellerController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Média créé, vous pouvez en ajouter un autre et valider ou cliquer sur terminé pour voir le détail');
+            return $this->redirectToRoute('app_adress_new', ['id' => $userSeller->getId()]);
+
         }
 
         return $this->render('seller/media_create.html.twig', [
@@ -207,5 +209,5 @@ class SellerController extends AbstractController
     }
 
 
-    // ADD NEW PRODUCT
+
 }

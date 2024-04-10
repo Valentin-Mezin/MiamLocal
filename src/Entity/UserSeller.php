@@ -45,7 +45,7 @@ class UserSeller
     private Collection $labels;
 
     #[ORM\OneToOne(inversedBy: 'userSeller', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Adress $adress = null;
 
     public function __construct()

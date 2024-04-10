@@ -35,7 +35,7 @@ class Adress
     private ?UserSeller $userSeller = null;
 
     #[ORM\OneToOne(mappedBy: 'adress', cascade: ['persist', 'remove'])]
-    private ?UserSeller $userBuyer = null;
+    private ?UserBuyer $userBuyer = null;
 
     public function getId(): ?int
     {
