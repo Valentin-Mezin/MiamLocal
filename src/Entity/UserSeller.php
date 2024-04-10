@@ -41,9 +41,17 @@ class UserSeller
     #[ORM\OneToMany(targetEntity: MediaSeller::class, mappedBy: 'userSeller')]
     private Collection $mediaSellers;
 
+    #[ORM\ManyToMany(targetEntity: Label::class, mappedBy: 'userSeller')]
+    private Collection $labels;
+
+    #[ORM\OneToOne(inversedBy: 'userSeller', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Adress $adress = null;
+
     public function __construct()
     {
         $this->mediaSellers = new ArrayCollection();
+        $this->labels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +169,50 @@ class UserSeller
                 $mediaSeller->setUserSeller(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Label>
+     */
+    public function getLabels(): Collection
+    {
+        return $this->labels;
+    }
+
+    public function addLabel(Label $label): static
+    {
+        if (!$this->labels->contains($label)) {
+            $this->labels->add($label);
+            $label->addUserSeller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLabel(Label $label): static
+    {
+        if ($this->labels->removeElement($label)) {
+            $label->removeUserSeller($this);
+        }
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(Adress $adress): static
+    {
+        // set the owning side of the relation if necessary
+        if ($adress->getUserSeller() !== $this) {
+            $adress->setUserSeller($this);
+        }
+
+        $this->adress = $adress;
 
         return $this;
     }

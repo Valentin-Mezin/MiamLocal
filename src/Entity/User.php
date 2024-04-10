@@ -40,6 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'seller')]
     private Collection $products;
 
+
     public function __construct()
     {
         $this->wishLists = new ArrayCollection();
@@ -206,4 +207,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
 }

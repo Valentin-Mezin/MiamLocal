@@ -48,6 +48,9 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?User $seller = null;
 
+    #[ORM\ManyToOne(inversedBy: 'product')]
+    private ?Unit $unit = null;
+
     public function __construct()
     {
         $this->wishLists = new ArrayCollection();
@@ -216,6 +219,18 @@ class Product
     public function getWishlistCount(): int
     {
         return count($this->wishLists);
+    }
+
+    public function getUnit(): ?Unit
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(?Unit $unit): static
+    {
+        $this->unit = $unit;
+
+        return $this;
     }
 
     
