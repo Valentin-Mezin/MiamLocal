@@ -1,0 +1,8 @@
+{% block title %}Modifier l'image du produit{% endblock %}
+
+{% block body %}
+    <h1>Modifier l'image du produit</h1>
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+    <img src="{{asset('uploads/' ~ product.productMedia)}}" alt="coucou">
+{% endblock %}

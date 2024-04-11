@@ -49,11 +49,14 @@ class UserBuyerController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_buyer_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserBuyerRepository $buyerRepository): Response
     {
         $user = $this->getUser();
-        
+        $profil = $buyerRepository->findBy(['user' => $user->getId()]);
 
+        if ($profil) {
+            return $this->redirectToRoute('app_user_buyer_index');
+        }
         if (!$user) {
             throw $this->createNotFoundException('Utilisateur non trouvé');
         }

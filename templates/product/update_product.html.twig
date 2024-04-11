@@ -1,0 +1,18 @@
+{% block title %}Modifier le produit{% endblock %}
+
+{% block body %}
+    <h1>Modifier le produit</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.price) }}
+    {{ form_row(form.stock) }}
+    {{ form_row(form.category) }}
+    {{ form_row(form.unit) }}
+    {{ form_row(form.Ajouter) }}
+    {{ form_end(form) }}
+    <img src="{{asset('uploads/' ~ product.productMedia)}}" alt="coucou">
+    <a href="">Modifier la photo</a>
+    <a href="{{ path('app_product_list') }}">Retour à la liste des produits</a>
+{% endblock %}

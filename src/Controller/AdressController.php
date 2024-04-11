@@ -35,12 +35,16 @@ class AdressController extends AbstractController
         $userBuyer = null;
 
         if($userRole === 'ROLE_SELLER') {
-            
             $userSeller = $userSellerRepository->findBy(['user' => $user->getId()])[0];
+            if ($userSeller->getAdress()) {
+                return $this->redirectToRoute('app_seller_index');
+            }
         }
         if($userRole === 'ROLE_BUYER') {
-
             $userBuyer = $userBuyerRepository->findBy(['user' => $user->getId()])[0];
+            if ($userBuyer->getAdress()) {
+                return $this->redirectToRoute('app_user_buyer_index');
+            }
         }   
         
         // dd($userBuyer);
@@ -52,9 +56,6 @@ class AdressController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($adress);
-            // $userSeller->setAdress($adress);
-            // $entityManager->persist($userSeller);
-            // $entityManager->persist($userBuyer);
             if ($userSeller !== null) {
                 $userSeller->setAdress($adress);
                 $entityManager->persist($userSeller);
@@ -67,8 +68,11 @@ class AdressController extends AbstractController
             }
             
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_adress_index', [], Response::HTTP_SEE_OTHER);
+            if ($userBuyer) {
+                return $this->redirectToRoute('app_user_buyer_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                return $this->redirectToRoute('app_seller_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('adress/new.html.twig', [
