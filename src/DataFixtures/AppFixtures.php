@@ -45,7 +45,7 @@ class AppFixtures extends Fixture
 
 
 
-            
+
 
             $manager->persist($seller);
         }
@@ -73,37 +73,8 @@ class AppFixtures extends Fixture
             $categoryEntities[] = $category;
         }
 
-        // create products
-        foreach ($sellers as $seller) {
-            $randomNumber = $faker->numberBetween(1, 15);
-                for ($i = 0; $i < $randomNumber; $i++) {
-                    $product = new Product();
-                    $product->setDescription($faker->text);
-                    $product->setTitle($faker->sentence(3));
-                    $product->setPrice($faker->randomFloat(2, 10, 1000));
-                    $product->setStock($faker->numberBetween(1, 100));
-                    $product->setCategory($faker->randomElement($categoryEntities));
-                    $product->setProductMedia($faker->imageUrl());
-                    $product->setSeller($seller);
 
-            $manager->persist($product);
-        }
-    }
-
-            // create labels
-            $labels = ['Agriculture biologique', 'LabelRouge', 'AOC', 'IGP', 'STG'];
-
-            $labelEntities = [];
-    
-            foreach ($labels as $labelTitle) {
-                $label = new Label();
-                $label->setTitle($labelTitle);
-    
-                $manager->persist($label);
-                $labelEntities[] = $label;
-            }
-
-                    // create units
+        // create units
         $units = ['Kilogramme', 'Gramme', 'Litre', 'Centilitre', 'Unité'];
 
         $unitEntities = [];
@@ -112,26 +83,60 @@ class AppFixtures extends Fixture
             $unit = new Unit();
             $unit->setName($unitName);
 
-            $manager->persist($category);
+            $manager->persist($unit);
             $unitEntities[] = $unit;
         }
 
-                // create regions
-                $regions = [
-                    'Auvergne-Rhône-Alpes',
-                    'Bourgogne-Franche-Comté',
-                    'Bretagne',
-                    'Centre-Val de Loire',
-                    'Corse',
-                    'Grand Est',
-                    'Hauts-de-France',
-                    'Île-de-France',
-                    'Normandie',
-                    'Nouvelle-Aquitaine',
-                    'Occitanie',
-                    'Pays de la Loire',
-                    'Provence-Alpes-Côte d\'Azur'
-                ];
+
+        // create products
+        foreach ($sellers as $seller) {
+            $randomNumber = $faker->numberBetween(1, 15);
+            for ($i = 0; $i < $randomNumber; $i++) {
+                $product = new Product();
+                $product->setDescription($faker->text);
+                $product->setTitle($faker->sentence(3));
+                $product->setPrice($faker->randomFloat(2, 10, 1000));
+                $product->setStock($faker->numberBetween(1, 100));
+                $product->setCategory($faker->randomElement($categoryEntities));
+                $product->setUnit($faker->randomElement($unitEntities));
+                $product->setProductMedia($faker->imageUrl());
+                $product->setSeller($seller);
+
+                $manager->persist($product);
+            }
+        }
+
+        // create labels
+        $labels = ['Agriculture biologique', 'LabelRouge', 'AOC', 'IGP', 'STG'];
+
+        $labelEntities = [];
+
+        foreach ($labels as $labelTitle) {
+            $label = new Label();
+            $label->setTitle($labelTitle);
+
+            $manager->persist($label);
+            $labelEntities[] = $label;
+        }
+
+
+
+        // create regions
+        $regions = [
+            'Auvergne-Rhône-Alpes',
+            'Bourgogne-Franche-Comté',
+            'Bretagne',
+            'Centre-Val de Loire',
+            'Corse',
+            'Grand Est',
+            'Hauts-de-France',
+            'Île-de-France',
+            'Normandie',
+            'Nouvelle-Aquitaine',
+            'Occitanie',
+            'Pays de la Loire',
+            'Provence-Alpes-Côte d\'Azur'
+        ];
         $regionEntities = [];
 
         foreach ($regions as $regionName) {

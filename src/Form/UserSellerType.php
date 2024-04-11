@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Label;
 use App\Entity\Region;
 use App\Entity\User;
 use App\Entity\UserSeller;
@@ -29,6 +30,13 @@ class UserSellerType extends AbstractType
             ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'choice_label' => 'name',
+            ])
+            ->add('labels', EntityType::class, [
+                'class' => Label::class,
+                'choice_label' => 'title',
+                'multiple' => true,
+                'expanded' => true,  // Utiliser des checkboxes au lieu d'une liste déroulante
+                'by_reference' => false,  // Pour traiter correctement les modifications
             ])
             // ->add('user', EntityType::class, [
             //     'class' => User::class,

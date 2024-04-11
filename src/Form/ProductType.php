@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\Unit;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -37,7 +38,11 @@ class ProductType extends AbstractType
             ->add('stock')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
+            ])
+            ->add('unit', EntityType::class, [
+                'class' => Unit::class,
+                'choice_label' => 'name',
             ])
             ->add('Ajouter', SubmitType::class);
     }
