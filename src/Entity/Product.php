@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -200,6 +201,15 @@ class Product
 
         return $this;
     }
+
+    public function findBySeller(?User $seller): array
+{
+    return $this->createQueryBuilder('p')
+        ->andWhere('p.seller = :seller')
+        ->setParameter('seller', $seller)
+        ->getQuery()
+        ->getResult();
+}
 
 
     // vérifier si un produit est dans la liste de souhaits de l'utilisateur connecté //

@@ -20,7 +20,7 @@ class Adress
     private ?string $city = null;
 
     #[ORM\Column]
-    private ?int $postCode = null;
+    private ?string $postCode = null;
 
     #[ORM\Column(length: 255)]
     private ?string $country = null;
@@ -37,6 +37,14 @@ class Adress
     #[ORM\OneToOne(mappedBy: 'adress', cascade: ['persist', 'remove'])]
     private ?UserBuyer $userBuyer = null;
 
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    
     public function getId(): ?int
     {
         return $this->id;

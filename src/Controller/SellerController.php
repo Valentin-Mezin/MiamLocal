@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\MediaSeller;
+use App\Entity\User;
 use App\Entity\UserSeller;
 use App\Form\MediaSellerType;
 use App\Form\UserSellerType;
-use App\Repository\MediaSellerRepository;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Repository\UserSellerRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,6 +20,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/seller', name: 'app_seller_')]
 #[IsGranted('ROLE_SELLER')]
+
 class SellerController extends AbstractController
 {
     // USER INFO PAGE
@@ -60,7 +62,9 @@ class SellerController extends AbstractController
         return $this->render('seller/index.html.twig', [
             'user' => $user,
             'seller' => $seller,
-            'info' => $infos
+            'info' => $infos,
+            'medias' => $seller->getMediaSellers(),
+
         ]);
     }
 
@@ -96,6 +100,41 @@ class SellerController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, UserSeller $userSeller, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(UserSellerType::class, $userSeller);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_seller_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('seller/seller_profil.html.twig', [
+            'user_seller' => $userSeller,
+            'form' => $form,
+        ]);
+    }
+
+    // #[Route('/{id}/edit/email', name: 'edit_email', methods: ['GET', 'POST'])]
+    // public function edit_email(User $user, Request $request, EntityManagerInterface $entityManager): Response
+    // {
+    //     $form = $this->createForm(UserType::class, $user);
+    //     $form->handleRequest($request);
+    
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $entityManager->flush();
+    
+    //         return $this->redirectToRoute('app_seller_index', [], Response::HTTP_SEE_OTHER);
+    //     }
+    
+    //     return $this->render('', [
+    //         'user' => $user,
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
 
 
@@ -176,37 +215,67 @@ class SellerController extends AbstractController
     // }
 
     // DELETE ONE MEDIA
+    // #[Route('/media/delete/{id}', name: 'media_delete')]
+    // public function delete(UserSellerRepository $repo, EntityManagerInterface $manager, $id = null): Response
+    // {
+    //     if ($id) {
+            
+    //         $seller = $this->getUser();
+    //         $userSeller = $repo->findBy(['user' => $seller->getId()])[0];
+            
+    //         $medias = $userSeller->getMediaSellers();
+            
+    //         foreach ($medias as $media) {
+    //             unlink($this->getParameter('upload_dir') . '/' . $media->getFilePath());
+    //             $manager->remove($media);
+    //         }
+    //         $manager->flush();
+    //         $this->addFlash('success', 'Votre produit à était supprimé.');
+
+    //         return $this->redirectToRoute('app_seller_index');
+    //     }
+    // }
     #[Route('/media/delete/{id}', name: 'media_delete')]
-    public function delete(UserSellerRepository $repo, EntityManagerInterface $manager, $id = null): Response
+    public function delete(EntityManagerInterface $manager, $id = null): Response
     {
+        // Vérifiez si un ID a été fourni dans la requête
         if ($id) {
-            $product = $repo->find($id);
-            $medias = $product->getMediaSellers();
-
-            foreach ($medias as $media) {
+            // Recherchez le média à supprimer
+            $media = $manager->getRepository(MediaSeller::class)->find($id);
+            
+            // Vérifiez si le média existe
+            if ($media) {
+                // Supprimez le fichier associé au média
                 unlink($this->getParameter('upload_dir') . '/' . $media->getFilePath());
+    
+                // Supprimez le média de la base de données
                 $manager->remove($media);
+                $manager->flush();
+    
+                $this->addFlash('success', 'Le média a été supprimé avec succès.');
+            } else {
+                $this->addFlash('error', 'Le média spécifié n\'existe pas.');
             }
-            $manager->remove($product);
-            $manager->flush();
-            $this->addFlash('success', 'Votre produit à était supprimé.');
-
-            return $this->redirectToRoute('app_seller_');
+        } else {
+            $this->addFlash('error', 'Aucun ID de média spécifié pour la suppression.');
         }
+    
+        // Redirigez l'utilisateur vers une autre page
+        return $this->redirectToRoute('app_seller_index');
     }
-
+    
 
     // SHOW ALL MEDIAS IN GALLERIE PHOTOS
 
-    #[Route('/media/list', name: 'media_list')]
-    public function medias_list(UserSellerRepository $userSeller): Response
-    {
-        $userSeller = $userSeller->findBy(["user" => $this->getUser()])[0];
+    // #[Route('/media/list', name: 'media_list')]
+    // public function medias_list(UserSellerRepository $userSeller): Response
+    // {
+    //     $userSeller = $userSeller->findBy(["user" => $this->getUser()])[0];
 
-        return $this->render('seller/media_gallery.html.twig', [
-            'medias' => $userSeller->getMediaSellers()
-        ]);
-    }
+    //     return $this->render('seller/media_gallery.html.twig', [
+    //         'medias' => $userSeller->getMediaSellers()
+    //     ]);
+    // }
 
 
 

@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/user/buyer')]
 #[IsGranted('ROLE_BUYER')]
+// #[IsGranted('ROLE_ADMIN')]
 
 class UserBuyerController extends AbstractController
 {

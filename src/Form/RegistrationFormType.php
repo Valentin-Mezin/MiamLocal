@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -29,8 +30,8 @@ class RegistrationFormType extends AbstractType
             // ])
             ->add('role', ChoiceType::class, [
                 'choices' => [
-                    'Buyer' => 'ROLE_BUYER',
-                    'Seller' => 'ROLE_SELLER',
+                    'Vendeur' => 'ROLE_BUYER',
+                    'Acheteur' => 'ROLE_SELLER',
                 ],
                 'expanded' => true,
             'multiple' => false,
@@ -52,6 +53,10 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+
+            ->add('submit', SubmitType::class, [
+                'label' => 'Valider'
             ])
         ;
     }

@@ -18,12 +18,12 @@ class AdressType extends AbstractType
             ->add('city')
             ->add('postCode')
             ->add('country')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
+            // ->add('createdAt', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('updatedAt', null, [
+            //     'widget' => 'single_text',
+            // ])
             // ->add('userSeller', EntityType::class, [
             //     'class' => UserSeller::class,
             //     'choice_label' => 'id',

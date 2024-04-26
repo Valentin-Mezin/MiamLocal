@@ -1,76 +1,86 @@
 {% extends "backoffice.html.twig" %}
 
-{% block title %}User{% endblock %}
+{% block title %}User
+{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+	<h1>User</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>IsVerified</th>
-                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-            </tr>
-             <tr>
-                <th>Profil</th>
-                <td>{{ profile.id }}</td>
-                <td>{{ profile.companyName }}</td>
-                <td>{{ profile.phone }}</td>
-                <td>{{ profile.description }}</td>
-                <td>{{ profile.createdAt|date('Y-m-d H:i:s') }}</td>
-                <td>{{ profile.updatedAt|date('Y-m-d H:i:s') }}</td>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ user.id }}</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{{ user.email }}</td>
+			</tr>
+			<tr>
+				<th>Roles</th>
+				<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+			</tr>
+			<tr>
+				<th>IsVerified</th>
+				<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+			</tr>
+			<tr>
+				<th>Profil</th>
+				<td>{{ profile.id }}</td>
+				<td>{{ profile.companyName }}</td>
+				<td>{{ profile.phone }}</td>
+				<td>{{ profile.description }}</td>
+				<td>{{ profile.createdAt|date('Y-m-d H:i:s') }}</td>
+				<td>{{ profile.updatedAt|date('Y-m-d H:i:s') }}</td>
 
 
+			</tr>
+			{# {% for key, value in profile %}
+			                <tr>
+			                    <th>{{ key }}</th>
+			                    <td>{{ value }}</td>
+			                </tr>
+			            {% endfor %} #}
 
-            </tr>
-               {# {% for key, value in profile %}
+			<tr>
+				<th>Medias</th>
                 <tr>
-                    <th>{{ key }}</th>
-                    <td>{{ value }}</td>
-                </tr>
-            {% endfor %} #}
+                <td>
+			{% for mediaSeller in profile.mediaSellers %}
+				<div class="col-md-4 mb-3">
+					<img src="{{ asset('uploads/' ~ mediaSeller.getFilePath()) }}" class="img-thumbnail img-fluid" alt="{{ mediaSeller.getDescription() }}">
+				</div>
+                </td>
 
-            <tr>
-                <th>Medias</th>
-                {# <td>{{ (profile.mediaSellers) }}</td> #}
-                {% dump(profile.mediaSellers) %}
-            </tr> 
-               {# {% for key, value in profile.mediaSellers %}
-               
-                <tr>
-                    <th>{{ key }}</th>
-                    <td>{{ value }}</td>
-                </tr> 
-             {% endfor %} #}
-            {% if products|length > 0 %}
-            <tr>
-                <th>Produits</th>
-                {# {% for key, value in products %}
-                <tr>
-                    <th>{{ key }}</th>
-                    <td>{{ value }}</td>
-                </tr>
-            {% endfor %} #}
+			{% endfor %}
             </tr>
-            {% endif %}
-        </tbody>
-    </table>
+			</tr>
 
-    <a href="{{ path('app_admin_user_index') }}">back to list</a>
 
-    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
+			{% if products|length > 0 %}
+				<tr>
+					<th>Produits</th>
+					{% for product in products %}
+						<tr>
+							<td>{{ product.id }}</td>
+							<td>{{ product.description }}</td>
+							<td>{{ product.category.title }}</td>
+				            <td>
+                                <div class="col-md-4 mb-3">
+				            	    <img src="{{ asset('uploads/' ~ product.productMedia()) }}" class="img-thumbnail img-fluid" alt="...">
+				                </div>
+                            </td>
 
-    {{ include('admin_user/_delete_form.html.twig') }}
+						</tr>
+					{% endfor %}
+				</tr>
+			{% endif %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_admin_user_index') }}">back to list</a>
+
+	<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
+
+	{{ include('admin_user/_delete_form.html.twig') }}
 {% endblock %}

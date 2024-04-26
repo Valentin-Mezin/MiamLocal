@@ -99,8 +99,8 @@ class AdressController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_adress_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Votre adresse a été modifiée avec succès.');
+            return $this->redirectToRoute('app_seller_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('adress/edit.html.twig', [

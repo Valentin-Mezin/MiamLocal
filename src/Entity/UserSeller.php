@@ -19,7 +19,7 @@ class UserSeller
     private ?string $companyName = null;
 
     #[ORM\Column]
-    private ?int $phone = null;
+    private ?string $phone = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
@@ -52,6 +52,9 @@ class UserSeller
     {
         $this->mediaSellers = new ArrayCollection();
         $this->labels = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->UpdatedAt = new \DateTimeImmutable();
+
     }
 
     public function getId(): ?int

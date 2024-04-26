@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/product', name: 'app_product_')]
+
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'list')]
@@ -29,6 +30,7 @@ class ProductController extends AbstractController
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'user' => $user,
+            'seller' => $userSeller,
             'userSeller' => $userSellerRepository
         ]);
     }
@@ -59,7 +61,7 @@ class ProductController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Votre produit à était Créé.');
-            return $this->redirectToRoute('app_product_list');
+            return $this->redirectToRoute('app_seller_index');
         }
         return $this->render('product/add_product.html.twig', [
             'form' => $form,
@@ -69,7 +71,7 @@ class ProductController extends AbstractController
 
 
 
-    /// UPDATE PRODUCT : ( IL FAUT DEBUGER ) /////
+    /// UPDATE PRODUCT : OK /////
 
     #[Route('/{id}', name: 'update')]
     public function update(Product $product, Request $request, EntityManagerInterface $manager): Response

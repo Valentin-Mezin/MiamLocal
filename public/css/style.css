@@ -1,0 +1,203 @@
+body {
+    padding-top:5%;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, #5ACAA7 0%, #62dbb4 90%, #a7d3c2 98%); /* Dégradé linéaire vertical */
+    box-shadow: 3px 3px 4px #459c81, -3px -3px 4px #6ff8cd;
+    color: #fff;
+    text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 1000; /* Assure que la barre de navigation reste au-dessus du reste du contenu */
+    opacity: 98%;
+}
+
+
+.navbar-nav .nav-link:hover {
+    color: #f9f9f9; /* Couleur du texte en survol */
+    text-decoration: underline;
+
+}
+
+.navbar .btn {
+    border-radius: 49px;
+    background: linear-gradient(145deg, #60d8b3, #51b696);
+    box-shadow:  9px 9px 18px #4dae90,
+                 -9px -9px 18px #67e6be;
+       color: white; /* Couleur du texte */
+    border: none; /* Supprime la bordure */
+    transition: all 0.3s ease; /* Animation de transition */
+}
+
+
+.navbar .btn:hover {
+    border-radius: 47px;
+    background: #459c81;
+    box-shadow:  2px 2px 4px #459c81,
+    -2px -2px 4px #6ff8cd;
+}
+
+/* container globale du body */
+.containerGlobal{
+    min-height: 31em;
+}
+
+.banner {
+    position: relative;
+    margin-top: -100px;
+}
+
+.banner img {
+    width: 100%;
+    height: 500px;
+    display: block;
+    object-fit: cover; /* Empêche la déformation de l'image en ajustant la taille pour remplir le conteneur */
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.profile-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-header p {
+    color: #666;
+}
+
+.profile-item {
+    margin-bottom: 10px;
+}
+
+.profile-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.profile-value {
+    color: #666;
+}
+
+
+section#products{
+    background-color: #EEEBE6;
+}
+
+section .lineContainer{
+
+    margin-top: 10px;
+    padding: 1em;
+    background: #e0e0e0;
+    border-radius: 20px;
+    box-shadow: 10px 10px 60px #bebebe,
+               -10px -10px 60px #ffffff;
+    min-width: 500px;
+       }
+
+
+
+
+/* Style général des cartes */
+
+
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.125); /* Bordure légère */
+    border-radius: 10px; /* Coins arrondis */
+    margin-bottom: 20px; /* Marge en bas */
+}
+
+/* Style du titre de la carte */
+.card-title {
+    font-weight: bold; /* Texte en gras */
+    font-size: 1.25rem; /* Taille de police */
+    color: #333; /* Couleur du texte */
+}
+
+/* Style du texte de la carte */
+.card-text {
+    color: #666; /* Couleur du texte */
+}
+
+
+/* Style du pied de la carte */
+.card-footer {
+    background-color: #f8f9fa; /* Couleur de fond */
+    border-top: 1px solid rgba(0, 0, 0, 0.125); /* Bordure légère en haut */
+    border-bottom-left-radius: 10px; /* Coins arrondis */
+    border-bottom-right-radius: 10px; /* Coins arrondis */
+}
+
+/* Style des boutons dans le pied de la carte */
+.card-footer .btn {
+    margin-right: 10px; /* Marge à droite */
+    font-size: 0.8rem; /* Taille de police légèrement réduite */
+}
+
+
+/* FOOTER */
+footer {
+    bottom: 0;
+    background: linear-gradient(to bottom,#a7d3c2 0%, #62dbb4 30%, #5ACAA7 50%); /* Dégradé linéaire vertical */
+    box-shadow: -3px -3px 4px #459c81, 3px 3px 4px #6ff8cd;
+    color: #fff;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-info h3 {
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    margin: 5px 0;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 20px;
+    margin: 0 5px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #fff; /* Optionnel: Change la couleur au survol */
+}
+
+.custom-height {
+    height: 10em; /* Hauteur personnalisée */
+}

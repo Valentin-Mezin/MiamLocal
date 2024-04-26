@@ -1,0 +1,17 @@
+{% extends 'backoffice.html.twig' %}
+{# Cette ligne indique que le modèle actuel (ce fichier) étend le modèle 'backoffice.html.twig'. #}
+
+
+{% block title %}
+{# Cette ligne débute la définition d'un bloc nommé "title". #}
+    {# {{ parent() ~ title }} #}
+{# Cela appelle le contenu du bloc parent avec parent() et concatène ensuite la variable "title" à ce contenu. #}
+{% endblock %}
+{# Cette ligne marque la fin du bloc "title". #}
+
+{% block body %}
+
+Bienvenue sur votre tableau de bord
+{# Cette ligne débute la définition d'un bloc nommé "body", qui est la section principale du contenu de la page. #}
+{% endblock %}
+{# Cette ligne marque la fin du bloc "body". #}

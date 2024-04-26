@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class UserSellerType extends AbstractType
 {
@@ -18,15 +19,21 @@ class UserSellerType extends AbstractType
     {
         $builder
             ->add('companyName')
-            ->add('phone')
-            ->add('description')
+            ->add('phone', null, [
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^0[1-9](\d{2}){4}$/',
+                        'message' => 'Veuillez saisir un numéro de téléphone valide.'
+                    ])
+                ]
+            ])            ->add('description')
 
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('UpdatedAt', null, [
-                'widget' => 'single_text',
-            ])
+            // ->add('createdAt', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('UpdatedAt', null, [
+            //     'widget' => 'single_text',
+            // ])
             ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'choice_label' => 'name',

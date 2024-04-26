@@ -26,6 +26,15 @@ class AdminUserController extends AbstractController
         ]);
     }
 
+    #[Route('/dashboard', name: 'dashboard')]
+    public function dashboard(): Response
+    {
+        
+        return $this->render('admin_user/dashboard.html.twig', [
+            'title'=>'Dashboard'
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_admin_user_show', methods: ['GET'])]
     public function show(User $user, UserSellerRepository $userSellerRepository, ProductRepository $productRepository): Response
     {
@@ -47,13 +56,13 @@ class AdminUserController extends AbstractController
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
+            
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
-
+        
         return $this->render('admin_user/edit.html.twig', [
             'user' => $user,
             'form' => $form,

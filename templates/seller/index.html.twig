@@ -1,47 +1,99 @@
-
 {% extends 'base.html.twig' %}
 
 {% block body %}
 
 
-<nav class="navbar bg-body-tertiary fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Offcanvas navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_seller_index') }}">Profil Vendeur</a></li>
-            <a class="nav-link" href="{{ path('app_seller_media_list') }}">Gallerie Photos</a></li>
-            <a class="nav-link" href="{{ path('app_product_list')}}">Mes Produits</a></li>
-            <a class="nav-link" href={{url('app_logout')}} class="btn btn-danger">Déconnexion</a>
+	{# <div>{{ user.id}}</div> #}
+	{# <div>{{ user.roles}}</div> #}
+    <h1>Vos Informations</h1>
 
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-          </li>
-        </ul>
-      </div>
+<div class="profile-container">
+    <div class="profile-header">
+
+        <h2>Nom de votre société :
+                {{ seller.companyName }}
+        </h2>
+
+        <p>description de votre activité :
+                {{ seller.description }}
+        </p>
+
+        <p>votre adresse e-mail: {{ user.email }}    
+            <a href="{{ path('app_admin_user_edit',{'id': user.id}) }}">Modifier votre email</a>
+        </p>
+
+		</div>
+		<div class="profile-details">
+			<div class="profile-item">
+				<span class="profile-label">Phone:</span>
+				<span class="profile-value">{{ seller.phone }}</span>
+			</div>
+
+                        {% if 'ROLE_SELLER' in app.user.roles %}
+                        <a href="{{ path('app_seller_edit',{'id': seller.id}) }}">
+                <i class='bx bx-edit-alt'>modifier vos informations</i></a>
+                {% endif %}
     </div>
-  </div>
-</nav>
-
-<div>{{ user.id}}</div>
-<div>{{ seller.id }}</div>
-<div>{{ seller.companyName}}</div>
+</div>
 
 
-<div>{{ info}}</div>
 
+
+			<div class="profile-item">
+				<span class="profile-label">Address:</span>
+				{% if seller.adress is not null %}
+					<span class="profile-value">{{ seller.adress.adress }},
+						{{ seller.adress.city }},
+						{{ seller.adress.postCode }}</span>
+				</div>
+
+				<button>
+					<a href="{{ path('app_adress_edit', {'id': seller.adress.id}) }}">Modifier votre adresse</a>
+				</button>
+			{% endif %}
+			{% if seller.adress is null %}
+
+				<button>
+					<a href="{{path ('app_adress_new')}}">
+						ajouter votre adresse
+					</a>
+				</button>
+			{% endif %}
+		</div>
+	</div>
+
+	{% include "seller/media_gallery.html.twig" %}
+
+	<h2>Vos produits</h2>
+
+	<a href="{{ path('app_product_add') }}" class="btn btn-primary">
+		<i class='bx bx-plus'></i>
+		Ajouter un produit
+	</a>
+
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+    {% for product in seller.user.products %}
+    <div class="col">
+        <div class="card mb-4 shadow-sm flex-fill" style="background-color: white;padding: 0 15px;">
+            <img src="{{ asset('uploads/' ~ product.productMedia) }}" class="card-img-top" alt="{{ product.title }}" style="padding:5px;">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text">Stock: {{ product.stock }}</p>
+                <div class="mt-auto"></div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">{{ product.price }} €</small>
+                    <a class="btn btn-info" href="{{ url('app_product_update', {'id': product.id} ) }}">Modifier</a>
+                    <a class="btn btn-danger" href="{{ url('app_product_delete', {'id': product.id} ) }}">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 
 

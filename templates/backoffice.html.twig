@@ -8,266 +8,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>{% block title %}  Owntrip Admin | {% endblock %}</title>
+    <title>{% block title %}Owntrip Admin | {% endblock %}</title>
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Boxicons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Your custom styles -->
     {% block stylesheet %}
-        <!-- Custom fonts for this template-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
-              integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w=="
-              crossorigin="anonymous" referrerpolicy="no-referrer"/>
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-              rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" integrity="sha512-KulI0psuJQK8UMpOeiMLDXJtGOZEBm8RZNTyBBHIWqoXoPMFcw+L5AEo0YMpsW8BfiuWrdD1rH6GWGgQBF59Lg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
         <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
+        <style>
+        @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");:root{--header-height: 3rem;--nav-width: 68px;--first-color: #4723D9;--first-color-light: #AFA5D9;--white-color: #F7F6FB;--body-font: 'Nunito', sans-serif;--normal-font-size: 1rem;--z-fixed: 100}*,::before,::after{box-sizing: border-box}body{position: relative;margin: var(--header-height) 0 0 0;padding: 0 1rem;font-family: var(--body-font);font-size: var(--normal-font-size);transition: .5s}a{text-decoration: none}.header{width: 100%;height: var(--header-height);position: fixed;top: 0;left: 0;display: flex;align-items: center;justify-content: space-between;padding: 0 1rem;background-color: var(--white-color);z-index: var(--z-fixed);transition: .5s}.header_toggle{color: var(--first-color);font-size: 1.5rem;cursor: pointer}.header_img{width: 35px;height: 35px;display: flex;justify-content: center;border-radius: 50%;overflow: hidden}.header_img img{width: 40px}.l-navbar{position: fixed;top: 0;left: -30%;width: var(--nav-width);height: 100vh;background-color: var(--first-color);padding: .5rem 1rem 0 0;transition: .5s;z-index: var(--z-fixed)}.nav{height: 100%;display: flex;flex-direction: column;justify-content: space-between;overflow: hidden}.nav_logo, .nav_link{display: grid;grid-template-columns: max-content max-content;align-items: center;column-gap: 1rem;padding: .5rem 0 .5rem 1.5rem}.nav_logo{margin-bottom: 2rem}.nav_logo-icon{font-size: 1.25rem;color: var(--white-color)}.nav_logo-name{color: var(--white-color);font-weight: 700}.nav_link{position: relative;color: var(--first-color-light);margin-bottom: 1.5rem;transition: .3s}.nav_link:hover{color: var(--white-color)}.nav_icon{font-size: 1.25rem}.show{left: 0}.body-pd{padding-left: calc(var(--nav-width) + 1rem)}.active{color: var(--white-color)}.active::before{content: '';position: absolute;left: 0;width: 2px;height: 32px;background-color: var(--white-color)}.height-100{height:100vh}@media screen and (min-width: 768px){body{margin: calc(var(--header-height) + 1rem) 0 0 0;padding-left: calc(var(--nav-width) + 2rem)}.header{height: calc(var(--header-height) + 1rem);padding: 0 2rem 0 calc(var(--nav-width) + 2rem)}.header_img{width: 40px;height: 40px}.header_img img{width: 45px}.l-navbar{left: 0;padding: 1rem 1rem 0 0}.show{width: calc(var(--nav-width) + 156px)}.body-pd{padding-left: calc(var(--nav-width) + 188px)}}
+        </style>
     {% endblock %}
 
 </head>
 
-<body
-        id="page-top">
-
-<!-- Page Wrapper -->
-<div
-        id="wrapper">
-
-    <!-- Sidebar -->
-    <ul
-            class="navbar-nav  text-white sidebar sidebar-dark accordion" id="accordionSidebar"
-            style="background-color: #000000;">
-
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/#">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">Re WANTED
-
-            </div>
-        </a>
-
-        <!-- Divider -->
-        <hr
-                class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-
-        <!-- Divider -->
-        <hr
-                class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            GESTION
-        </div>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-               aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Gestion des utilisateurs </span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="dropdown-item" href={{url('app_admin_user_index')}}>Tout les utilisateurs </a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Divider -->
-        <hr
-                class="sidebar-divider">
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiess"
-               aria-expanded="true" aria-controls="collapseUtilitiess">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Gestion des médias </span>
-            </a>
-            <div id="collapseUtilitiess" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="dropdown-item" href="">Ajouter un média</a>
-                    <a class="dropdown-item" href="">Liste des médias </a>
-                    <a class="dropdown-item" href=""> </a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Divider -->
-
-        <hr
-                class="sidebar-divider">
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href={{ url('admin_category')}}>
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Gestion Catégories</span>
-            </a>
-        </li>
-
-        <!-- Divider -->
-        <hr
-                class="sidebar-divider">
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href={{ url('app_region_index')}}>
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Gestion des régions</span>
-            </a>
-        </li>
-
-        <!-- Divider -->
-        <hr
-                class="sidebar-divider">
-
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item ">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Modération avis</span>
-            </a>
-
-        </li>
-
-        <!-- Divider -->
-        <hr
-                class="sidebar-divider">
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ path('users') }}">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Gestion des utilisateurs</span>
-            </a>
-
-        </li>
-
-
-
-
-
-
-        <!-- Divider -->
-        <hr
-                class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div
-            id="content-wrapper" class="d-flex flex-column">
-
-        <!-- Main Content -->
-        <div
-                id="content">
-
-            <!-- Topbar -->
-            <nav id="test"
-                 class="navbar navbar-expand navbar-light  topbar mb-4 static-top shadow"
-                 style="background-color: #000000;">
-                {#  #}
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-
-                <!-- Topbar Search -->
-
-
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
-
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link " href="{{ path('home') }}" role="button">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Retour au site</span>
-                            <i class="img-profile fas fa-laugh-wink rounded-circle"></i>
-                        </a>
-
-                    </li>
-                </ul>
-            </nav>
-            <!-- End of Topbar -->
-            <div class="container col-3 ">
-                {% for label, msgs in app.flashes %}
-                    {% for msg in msgs %}
-                        <div class="alert alert-{{ label }} text-center">
-                            {{ msg }}
-                        </div>
-
-                    {% endfor %}
-                {% endfor %}
-            </div>
-
-
-            <div
-                    class="container-fluid">
-
-                <h1 class="text-center m-5">
-                    {% block titre %}
-
-                    {% endblock %}
-                </h1>
-                <!-- Page Heading -->
-                {% block body %}
-
-
-                {% endblock %}
-
-            </div>
-            <!-- /.container-fluid -->
-
-
-        </div>
-        <!-- End of Content Wrapper -->
-
+<body id="body-pd">
+    <header class="header" id="header">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div> <a href="{{ path ('app_index') }}" class="nav_logo"> <i class='bx bx-home-alt-2 nav_logo-icon'></i> <span class="nav_logo-name">MiamLocal</span> </a>
+                <div class="nav_list"> <a href="#" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a> 
+                {# Users icon #}
+                <a href="{{ url('app_admin_user_index')}}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
+                {# Label icon #}
+                <a href="{{ url('app_label_index')}}" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Labels</span> </a>
+                {# map-pin icon #}
+                <a href="{{ url('app_unit_index')}}" class="nav_link"> <i class='bx bx-cylinder nav_icon'></i></i> <span class="nav_name">Unités</span> </a> 
+                {# category icon #}
+                <a href="{{ url('app_category_index')}}" class="nav_link"> <i class='bx bx-category-alt nav_icon'</i> </i> <span class="nav_name">Catégories</span> </a>
+                {# map-pin icon #}
+                <a href="{{ url('app_region_index')}}" class="nav_link"> <i class='bx bx-map-pin nav_icon'></i> <span class="nav_name">Régions</span> </a>
+                 </div>
+            </div> 
+            <a href="{{ url('app_logout') }}" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+        </nav>
+        
     </div>
-    <!-- End of Page Wrapper -->
+    <!--Container Main start-->
+    <div class="height-100 bg-light">
+    {% block body %}
+        <h4>Main Components</h4>
+    {% endblock %}
+    </div>
+    <!--Container Main end-->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
-</div>
-
+<!-- Your custom scripts -->
 {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"
-            integrity="sha512-7rusk8kGPFynZWu26OKbTeI+QPoYchtxsmPeBqkHIEXJxeun4yJ4ISYe7C6sz9wdxeE1Gk3VxsIWgCZTc+vX3g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"
-            integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+   
+const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+const toggle = document.getElementById(toggleId),
+nav = document.getElementById(navId),
+bodypd = document.getElementById(bodyId),
+headerpd = document.getElementById(headerId)
 
+// Validate that all variables exist
+if(toggle && nav && bodypd && headerpd){
+toggle.addEventListener('click', ()=>{
+// show navbar
+nav.classList.toggle('show')
+// change icon
+toggle.classList.toggle('bx-x')
+// add padding to body
+bodypd.classList.toggle('body-pd')
+// add padding to header
+headerpd.classList.toggle('body-pd')
+})
+}
+}
+
+showNavbar('header-toggle','nav-bar','body-pd','header')
+
+/*===== LINK ACTIVE =====*/
+const linkColor = document.querySelectorAll('.nav_link')
+
+function colorLink(){
+if(linkColor){
+linkColor.forEach(l=> l.classList.remove('active'))
+this.classList.add('active')
+}
+}
+linkColor.forEach(l=> l.addEventListener('click', colorLink))
+
+ // Your code to run since DOM is loaded and ready
+});
+    </script>
 {% endblock %}
 
-
 </body>
-
 
 </html>
