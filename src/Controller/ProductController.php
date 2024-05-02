@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\MediaType;
 use App\Form\ProductType;
 use App\Form\ProductUpdateType;
 use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
 use App\Repository\UserSellerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,21 +21,44 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'list')]
-    public function index(ProductRepository $productRepository, UserSellerRepository $userSellerRepository): Response
+    #[Route('/seller/{id}', name: 'show_product_profil')]
+
+    public function index(UserRepository $userRepository, ProductRepository $productRepository, UserSellerRepository $userSellerRepository, Request $request): Response
     {
-        $user = $this->getUser();
-        $userSeller = $userSellerRepository->findOneBy(['user' => $user]);
+        // Récupérer l'ID du vendeur à partir de la requête
+        $userId = $request->query->get('id');
+    
+        // Recherche du vendeur correspondant à l'ID
+        $userSeller = $userSellerRepository->find($userId);
+        // dd($userSeller);
 
-        // Récupérer les produits associés à l'utilisateur connecté
-        $products = $productRepository->findBy(['seller' => $user]);
 
-        return $this->render('product/index.html.twig', [
-            'products' => $products,
-            'user' => $user,
+          // Vérifier si le vendeur existe
+    if ($userSeller) {
+        // Récupérer l'objet User associé à l'objet UserSeller
+        $user = $userSeller->getUser();
+        // Récupérer l'ID de l'utilisateur
+        $products = $user->getProducts();
+        // Utilisez $user comme nécessaire dans votre contrôleur
+    } else {
+        // Gérer le cas où le vendeur n'est pas trouvé
+    }
+    
+    
+    
+    // Récupérer les produits associés à l'utilisateur connecté
+    // $products = $productRepository->findBy(['seller' => $userId]);
+    
+    return $this->render('product/index.html.twig', [
+        'products' => $products,
+        // dd($products),
+            'user' => $userId, // Passer l'ID du vendeur à la vue
             'seller' => $userSeller,
             'userSeller' => $userSellerRepository
         ]);
     }
+    
+
 
     // ADD NEW PRODUCT : OK //
     #[route('/add', name: 'add')]
@@ -73,7 +98,7 @@ class ProductController extends AbstractController
 
     /// UPDATE PRODUCT : OK /////
 
-    #[Route('/{id}', name: 'update')]
+    #[Route('/{$id}', name: 'update')]
     public function update(Product $product, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(ProductUpdateType::class, $product);

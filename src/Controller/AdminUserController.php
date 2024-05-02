@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\ProductRepository;
+use App\Repository\UserBuyerRepository;
 use App\Repository\UserRepository;
 use App\Repository\UserSellerRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,10 +37,12 @@ class AdminUserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_user_show', methods: ['GET'])]
-    public function show(User $user, UserSellerRepository $userSellerRepository, ProductRepository $productRepository): Response
+    public function show(User $user, UserSellerRepository $userSellerRepository, ProductRepository $productRepository, UserBuyerRepository $userBuyerRepository): Response
     {
         $userSeller = $userSellerRepository->findBy(['user' => $user->getId()]);
         // ici même chose pour buyer
+        $userBuyer = $userBuyerRepository->findBy(['user' => $user->getId()]);
+
         $products = [];
         if (!empty($userSeller)) {
             $products = $productRepository->findBy(['seller' => $user->getId()]);
@@ -47,6 +50,7 @@ class AdminUserController extends AbstractController
         return $this->render('admin_user/show.html.twig', [
             'user' => $user,
             'profile' => !empty($userSeller) ? $userSeller[0] : null,
+            'profilBuyer' => !empty($userBuyer) ? $userBuyer[0] : null,
             'products' => $products
         ]);
     }

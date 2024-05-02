@@ -39,6 +39,7 @@ class SellerController extends AbstractController
     // }
 
     #[Route('/', name: 'index')]
+    
     public function index(Security $security, UserSellerRepository $sellerRepository, UserRepository $user): Response
     {
         $user = $security->getUser(); // Obtenez l'utilisateur actuellement connecté

@@ -33,6 +33,13 @@ class UserBuyer
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    public function __construct()
+    {
+        $this->registrationDate = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
+
+    }
+
     public function getId(): ?int
     {
         return $this->id;

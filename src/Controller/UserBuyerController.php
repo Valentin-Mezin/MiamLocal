@@ -79,7 +79,7 @@ class UserBuyerController extends AbstractController
 
         return $this->render('user_buyer/new.html.twig', [
             'userBuyer' => $userBuyer,
-            'form' => $form,
+            'form' => $form->createView()
         ]);
     }
 
