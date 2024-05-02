@@ -1,6 +1,32 @@
-{% extends "seller/index.html.twig" %}
+{% extends "base.html.twig" %}
 
 {% block body %}
-<h1>Créer votre profil vendeur</h1>
-<div>{{form(form)}}</div>
-{% endblock %} 
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center"><i class='bx bx-user nav_icon'></i>Profil</h1>
+            <h2>Votre profil est vide , veuillez remplir vos informations</h2>
+            <div class="mt-4"> <!-- Ajoute une marge top -->
+                {{ form_start(form) }}
+                {{ form_row(form.companyName, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(form.phone, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(form.description, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(form.region, {'attr': {'class': 'form-control mb-3'}}) }}
+                <div class="form-group">
+                <p>Cochez les labels de qualité que vous possédez</p>
+                    <div class="form-check form-check-inline">
+                        {% for label in form.labels %}
+                            <div class="form-check form-check-inline">
+                                {{ form_widget(label, {'attr': {'class': 'form-check-input'}}) }}
+                                {{ form_label(label, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Valider</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

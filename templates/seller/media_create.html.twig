@@ -2,20 +2,51 @@
 
 {% block body %}
 
-    <h1>Ajoutez des photos !</h1>
-    <div>{{form(form)}}</div>
-    <a href="{{ path('app_seller_index') }}">Valider</a>
-    <img id="image" width="300" alt=""><br>
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<h1 class="text-center">
+					<i class='bx bx-user nav_icon'></i>
+					Profil</h1>
+				<h2>Ajoutez des photos pour mettre en avant votre activité !</h2>
+				<div
+					class="mt-4">
+					<!-- Ajoute une marge top -->
+					{{ form_start(form) }}
+					<div class="mb-3">
+						{{ form_label(form.description, 'Description', {'class': 'form-label'}) }}
+						{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+					</div>
+					<div class="mb-3">
+						{{ form_label(form.filePath, 'Fichier photo en lien avec le produit', {'class': 'form-label'}) }}
+						{{ form_widget(form.filePath, {'attr': {'class': 'form-control', 'onChange': 'loadFile(event)'}}) }}
+						{{ form_errors(form.filePath) }}
+					</div>
+					<div class="mb-3">
+          <img id="image" width="400" height="300" alt="">
+                <button type="submit" class="btn btn-primary">Valider</button>
+						{# {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }} #}
+					</div>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
 
-  <script>
-    var loadFile = function (event) {
-      var image = document.getElementById('image');
-      var name = document.getElementById('name');
 
-      image.src = URL.createObjectURL(event.target.files[0]);
 
-    };
 
-  </script>
+{# Script pour afficher la photo téléchargée #}
+
+<script>
+
+var loadFile = function (event) {
+  var image = document.getElementById('image');
+  var name = document.getElementById('name');
+
+  image.src = URL.createObjectURL(event.target.files[0]);
+
+  };
+
+</script>
+
 
 {% endblock %}

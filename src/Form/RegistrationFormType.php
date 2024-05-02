@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +20,13 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+        ->add('email', EmailType::class , [
+            'attr' => [
+                'class' => 'h-full-width',
+                'placeholder' => 'Votre Email'
+            ],
+            'label'=> 'Email'
+        ])
             // ->add('agreeTerms', CheckboxType::class, [
             //     'mapped' => false,
             //     'constraints' => [
@@ -30,8 +37,8 @@ class RegistrationFormType extends AbstractType
             // ])
             ->add('role', ChoiceType::class, [
                 'choices' => [
-                    'Vendeur' => 'ROLE_BUYER',
-                    'Acheteur' => 'ROLE_SELLER',
+                    'Acheteur' => 'ROLE_BUYER',
+                    'Vendeur' => 'ROLE_SELLER',
                 ],
                 'expanded' => true,
             'multiple' => false,

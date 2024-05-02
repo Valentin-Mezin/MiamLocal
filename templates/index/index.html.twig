@@ -1,80 +1,82 @@
 {% extends 'base.html.twig' %}
 
 
-{% block header %}
-
-
-
-
-{% endblock %}
+{% block header %}{% endblock %}
 
 {% block body %}
 
-<header class="banner">
-        <img src="{{asset('/images/vegetables.jpg')}}" alt="COUCOU">
-    <div class="banner-text">
-        <h1>Welcome to Our Website</h1>
-        <p>Discover Amazing Products</p>
-    </div>
-</header>
+	<header class="banner">
+		<img src="{{asset('/images/vegetables.jpg')}}" alt="COUCOU">
+		<div class="banner-text">
+			<h1>Welcome to Our Website</h1>
+			<p>Discover Amazing Products</p>
+		</div>
+	</header>
 
-{# PRODUCT / SELLER CONTAINER #}
-<section id="products">
-    <div class="container">
-        <h1>Products List</h1>
-        {% for user in users %}
-        <div class="lineContainer">
-        <div class="row mb-4">
-            <div class="col-md-6 col-lg-3">
-                <div class="card mb-4 shadow-sm h-100" style="background-color: white;">
-                    {% if user.mediaSellers|length > 0 %}
-                    <img  src="{{ asset('uploads/' ~ user.mediaSellers[0].getFilePath()) }}" width="200" height="200" class="img-fluid card-img" style="padding: 5px; border-radius: 50%;" alt="ICI">
-                    {% endif %}
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ user.id }}</h5>
-                        <p class="card-text">Name: {{ user.companyName }}</p>
-                        <p class="card-text">Description</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-between align-items-center">
-                        <a href="{{ path('app_product_list', {'id': user.id}) }}" class="btn btn-primary">Afficher tous les produits</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% for product in user.user.products|slice(0,3) %}
-            <div class="col-md-6 col-lg-3">
-                <div class="card mb-4 shadow-sm h-100" style="background-color: white;padding: 0 15px;">
-                    <img src="{{ product.productMedia }}" class="card-img-top" alt="{{ product.title }}" style="padding:5px;">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ product.title }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <p class="card-text">Stock: {{ product.stock }}</p>
-                        <div class="mt-auto"></div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">{{ product.price }} €</small>
-                            <p>{{ product.wishlistCount }} likes</p>
-                            {% if is_granted('ROLE_BUYER') %}
-                            {% if product.isInWishlist(app.user) %}
-                            <a href="{{ path('app_wishlist_remove', {'id': product.id}) }}" class="btn btn-danger">Dislike</a>
-                            {% else %}
-                            <a href="{{ path('app_wishlist_add', {'id': product.id}) }}" class="btn btn-primary">Like</a>
-                            {% endif %}
-                            {% endif %}
-                            <a href="{{ path('app_cart_add', {'id': product.id}) }}" class="btn btn-sm btn-outline-secondary">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        </div>
-        {% endfor %}
-    </div>
-</section>
+	{# PRODUCT / SELLER CONTAINER #}
+	<section id="products">
+		<div class="container">
+			<h1>Les Producteurs et leur produits</h1>
+			{% for user in users %}
+				{# <div class="lineContainer"> #}
+				<div class="row mb-4 ">
+					<div class="col-md-6 col-lg-3" style=" padding: 5px;">
+						<div class="card mb-4 shadow-sm h-100" style="background-color: white;">
+							<div class="card-body d-flex flex-column align-items-center justify-content-center">
+								{% if user.mediaSellers|length > 0 %}
+									<img src="{{ asset('uploads/' ~ user.mediaSellers[0].getFilePath()) }}" class="img-fluid card-img" style="padding: 5px; border-radius: 50%;" alt="{{user.companyName}}">
+								{% endif %}
+								<h5 class="card-title">{{ user.companyName }}</h5>
+								<p class="card-text">
+									<i class='bx bx-map'></i>
+									{{ user.region.name }}</p>
+							</div>
+							<div class="card-footer">
+								<div class="d-flex align-items-center justify-content-center">
+									<a href="{{ path('app_product_list', {'id': user.id}) }}" class="btn btn-primary">Voir tous les produits</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% for product in user.user.products|slice(0,3) %}
+						<div class="col-md-6 col-lg-3 " style=" padding: 5px;">
+							<div class="card mb-4 shadow-sm h-100" style="background-color: white;">
+								<img src="{{ asset('uploads/' ~ product.productMedia) }}" class="card-img-top" alt="{{ product.title }}">
+								<div class="card-body d-flex flex-column">
+									<h5 class="card-title">{{ product.title }}</h5>
+									<p class="card-text">{{ product.description }}</p>
+								</div>
+								<div class="card-footer d-flex">
+									<div class="flex-grow-1">
+										<p class="text-muted">{{ product.price }}
+											€</p>
+										<small class="text-muted">/{{product.unit.name }}</small>
+									</div>
 
-{# PRODUCT / SELLER CONTAINER END #}
+									<div class="flex-grow-1">
+										<p>{{ product.wishlistCount }}
+											j'aime</p>
+										{% if is_granted('ROLE_BUYER') %}
+											{% if product.isInWishlist(app.user) %}
+												<a href="{{ path('app_wishlist_remove', {'id': product.id}) }}" class="btn btn-danger">Je n'aime plus</a>
+											{% else %}
+												<a href="{{ path('app_wishlist_add', {'id': product.id}) }}" class="btn btn-primary">
+													<i class='bx bx-heart'></i>J'aime</a>
+											{% endif %}
+											<a href="{{ path('app_cart_add', {'id': product.id}) }}" class="btn btn-secondary" id="cart-btn-card">
+												<i class='bx bx-cart'></i>+ Panier</a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				{# </div> #}
+			{% endfor %}
+		</div>
+	</section>
+
+	{# PRODUCT / SELLER CONTAINER END #}
 
 {% endblock %}
